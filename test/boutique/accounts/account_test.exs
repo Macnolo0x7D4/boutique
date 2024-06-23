@@ -35,7 +35,8 @@ defmodule Boutique.Accounts.AccountTest do
     @no_existing_attrs %{email: "noemail@example.com", password: "Sup3r$3cUr3P4ssW0rd"}
 
     test "sign_in/1 with valid data" do
-      acc = AccountFixtures.account_fixture(@valid_attrs)
+      AccountFixtures.account_fixture(@valid_attrs)
+
       assert {:ok, token, account} = Accounts.sign_in(@valid_attrs)
       assert account.email == @valid_attrs.email
       assert String.starts_with?(token, "ey")
