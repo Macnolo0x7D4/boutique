@@ -18,6 +18,8 @@ defmodule Boutique.Accounts.SignIn do
     end
   end
 
+  def call(_), do: {:error, :invalid_credentials}
+
   defp validate_password(password, hashed_password) do
     if Argon2.verify_pass(password, hashed_password) do
       :ok
