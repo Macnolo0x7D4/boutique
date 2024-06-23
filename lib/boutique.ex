@@ -11,6 +11,21 @@ defmodule Boutique do
       use Ecto.Schema
 
       import Ecto.Changeset
+
+      @primary_key {:id, :binary_id, autogenerate: true}
+      @foreign_key_type :binary_id
+    end
+  end
+
+  def context do
+    quote do
+      alias Boutique.Repo
+    end
+  end
+
+  def use_case do
+    quote do
+      @behaviour Boutique.UseCase
     end
   end
 
