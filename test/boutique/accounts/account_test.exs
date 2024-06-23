@@ -1,4 +1,5 @@
 defmodule Boutique.Accounts.AccountTest do
+  alias Boutique.AccountFixtures
   use Boutique.DataCase
 
   alias Boutique.Accounts
@@ -7,14 +8,14 @@ defmodule Boutique.Accounts.AccountTest do
   @valid_attrs %{email: "email@example.com", password: "aS3cur3Password"}
   @invalid_attrs %{email: nil, password: nil}
 
-  describe "register account" do 
+  describe "register account" do
     @no_valid_email_attrs %{email: "as", password: "aS3cur3Password"}
     @no_valid_password_attrs %{email: "email@example.com", password: "example"}
 
     test "registrate_account/1 with valid data" do
       assert {:ok, %Account{} = account} = Accounts.register_account(@valid_attrs)
       assert account.email == @valid_attrs.email
-      assert Argon2.verify_pass(@valid_attrs.password, account.hashed_password) 
+      assert Argon2.verify_pass(@valid_attrs.password, account.hashed_password)
     end
 
     test "registrate_account/1 with invalid data" do
@@ -34,8 +35,10 @@ defmodule Boutique.Accounts.AccountTest do
     @no_existing_attrs %{email: "noemail@example.com", password: "Sup3r$3cUr3P4ssW0rd"}
 
     test "sign_in/1 with valid data" do
-      assert {:ok, token} = Accounts.sign_in(@valid_attrs)
-      assert account.email = @valid_attrs.email
+      acc = AccountFixtures.account_fixture(@valid_attrs)
+      assert {:ok, token, account} = Accounts.sign_in(@valid_attrs)
+      assert account.email == @valid_attrs.email
+      assert String.starts_with?(token, "ey")
     end
 
     test "sign_in/1 with invalid data" do
@@ -47,4 +50,3 @@ defmodule Boutique.Accounts.AccountTest do
     end
   end
 end
-
