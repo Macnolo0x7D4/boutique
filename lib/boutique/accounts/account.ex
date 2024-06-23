@@ -1,8 +1,6 @@
 defmodule Boutique.Accounts.Account do
   use Boutique, :model
-
-  @primary_key {:id, :binary_id, autogenerate: true}
-  @foreign_key_type :binary_id
+ 
   schema "accounts" do
     field :email, :string
     field :hashed_password, :string, redact: true
