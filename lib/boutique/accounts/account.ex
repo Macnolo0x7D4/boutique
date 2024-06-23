@@ -1,6 +1,6 @@
 defmodule Boutique.Accounts.Account do
   use Boutique, :model
- 
+
   schema "accounts" do
     field :email, :string
     field :hashed_password, :string, redact: true
